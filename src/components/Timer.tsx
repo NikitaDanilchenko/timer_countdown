@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { SApp, SHeader } from '../assets/styles/app.styles';
 
-const Timer = () => {
-    return <div></div>;
+const Timer: FC = () => {
+    return (
+        <SApp>
+            Timer
+            <SHeader></SHeader>
+        </SApp>
+    );
 };
 export default Timer;
