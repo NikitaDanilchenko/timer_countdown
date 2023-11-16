@@ -11,6 +11,11 @@ const Countdown: FC = () => {
     const [secondInput, setSecondsInput] = useState(0);
     const [minutesInput, setMinutesInput] = useState(0);
     const [on, setOn] = useState(false);
+    
+    useEffect(() => {
+        setMinutes(minutesInput);
+        setSeconds(secondInput);
+    }, [minutesInput, secondInput]);
 
     useEffect(() => {
         let interval: NodeJS.Timer;
@@ -27,20 +32,16 @@ const Countdown: FC = () => {
             }, 1000)
         }
         return () => clearInterval(interval)
-    }, [on, seconds, minutes]);
+    }, [on, minutes, seconds]);
 
-    useEffect(() => {
-        setSeconds(secondInput);
-        setMinutes(minutesInput);
-    }, [secondInput, minutesInput]);
 
 
 
     const reset = () => {
-        setSecondsInput(0);
         setMinutesInput(0);
+        setSecondsInput(0);
         setOn(false)
-    }
+    };
 
 
 

@@ -1,42 +1,45 @@
-import { Input, Slider } from "@mui/joy";
+import { Input } from "@mui/joy";
+import  Slider  from "@mui/material/Slider";
 import React, { useState } from "react";
 
 interface CountdownInputProps {
-    onSetTime: (seconds: number, minutes: number) => void;
+    onSetTime: (minutes: number, seconds: number) => void;
     disabled: boolean;
 }
 
-// export default function CountdownInput({onSetTime, disabled}: CountdownInputProps) {
-//     const [second, setSeconds] = useState<number>(0);
-//     const [minutes, setMinutes] = useState<number>(0);
+export default function CountdownInput({onSetTime, disabled}: CountdownInputProps) {
+    const [minutes, setMinutes] = useState<number>(0);
+    const [seconds, setSeconds] = useState<number>(0);
 
     
-const CountdownInput = ({onSetTime, disabled}: CountdownInputProps) => {
-    const [seconds, setSeconds] = useState<number>(0);
-    const [minutes, setMinutes] = useState<number>(0);
-
-    const handleSeconds = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newSeconds = Number(event.target.value);
-        if(newSeconds >= 0 && newSeconds < 60) {
-            setSeconds(newSeconds);
-            onSetTime(newSeconds, seconds);
-        }
-    }
+// const CountdownInput = ({onSetTime, disabled}: CountdownInputProps) => {
+//     const [seconds, setSeconds] = useState<number>(0);
+//     const [minutes, setMinutes] = useState<number>(0);
 
     const handleMinutes = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newMinutes = Number(event.target.value);
         if(newMinutes >= 0 && newMinutes <= 720) {
             setMinutes(newMinutes);
-            onSetTime(newMinutes, minutes);
+            onSetTime(newMinutes, seconds);
         }
     }
 
+    const handleSeconds = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newSeconds = Number(event.target.value);
+        if(newSeconds >= 0 && newSeconds < 60) {
+            setSeconds(newSeconds);
+            onSetTime(newSeconds, minutes);
+        }
+    }
+
+    
+
     const handleSlider = (event: Event, newValue: number | number[]) => {
-        const newSeconds = ((newValue as number) % 4) * 15;
         const newMinutes = Math.floor(newValue as number) / 4;
-        setSeconds(seconds);
+        const newSeconds = ((newValue as number) % 4) * 15;
         setMinutes(minutes);
-        onSetTime(newSeconds, newMinutes)
+        setSeconds(seconds);
+        onSetTime(newMinutes, newSeconds)
     }
     return (
        <div>
@@ -45,7 +48,7 @@ const CountdownInput = ({onSetTime, disabled}: CountdownInputProps) => {
         sx={{width: 150, marginLeft: '500px'}}
         color="primary"
         variant="soft"
-        placeholder=""
+        placeholder="asfasf"
         disabled={disabled}
         onChange={handleMinutes}
         value={minutes}
@@ -57,12 +60,14 @@ const CountdownInput = ({onSetTime, disabled}: CountdownInputProps) => {
         sx={{width: 150, marginLeft: '500px'}}
         color="primary"
         variant="soft"
-        placeholder=""
         disabled={disabled}
         onChange={handleSeconds}
         value={seconds}
         type='number'
         />
+
+
+        
 
         <Slider 
         sx={{width: 400}}
@@ -76,7 +81,7 @@ const CountdownInput = ({onSetTime, disabled}: CountdownInputProps) => {
         
         
         
-    )
+    );
 }
 
-export default CountdownInput;
+// export default CountdownInput;
