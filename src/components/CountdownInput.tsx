@@ -1,6 +1,6 @@
-import { Input } from "@mui/joy";
-import  Slider  from "@mui/material/Slider";
 import React, { useState } from "react";
+import  Slider  from "@mui/material/Slider";
+import { Input } from "@mui/joy";
 
 interface CountdownInputProps {
     onSetTime: (minutes: number, seconds: number) => void;
@@ -18,7 +18,7 @@ export default function CountdownInput({onSetTime, disabled}: CountdownInputProp
 
     const handleMinutes = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newMinutes = Number(event.target.value);
-        if(newMinutes >= 0 && newMinutes <= 720) {
+        if(newMinutes >= 0 && newMinutes <= 120) {
             setMinutes(newMinutes);
             onSetTime(newMinutes, seconds);
         }
@@ -28,7 +28,7 @@ export default function CountdownInput({onSetTime, disabled}: CountdownInputProp
         const newSeconds = Number(event.target.value);
         if(newSeconds >= 0 && newSeconds < 60) {
             setSeconds(newSeconds);
-            onSetTime(newSeconds, minutes);
+            onSetTime(minutes, newSeconds);
         }
     }
 
@@ -37,8 +37,8 @@ export default function CountdownInput({onSetTime, disabled}: CountdownInputProp
     const handleSlider = (event: Event, newValue: number | number[]) => {
         const newMinutes = Math.floor(newValue as number) / 4;
         const newSeconds = ((newValue as number) % 4) * 15;
-        setMinutes(minutes);
-        setSeconds(seconds);
+        setMinutes(newMinutes);
+        setSeconds(newSeconds);
         onSetTime(newMinutes, newSeconds)
     }
     return (
@@ -48,7 +48,7 @@ export default function CountdownInput({onSetTime, disabled}: CountdownInputProp
         sx={{width: 150, marginLeft: '500px'}}
         color="primary"
         variant="soft"
-        placeholder="asfasf"
+        placeholder="number"
         disabled={disabled}
         onChange={handleMinutes}
         value={minutes}

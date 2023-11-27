@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 
 
@@ -10,11 +10,14 @@ import React from "react";
 
 function CountdownButton({on, reset, toggle}: IBtnSettings) {
     return (
-        <Box>
-            <Button onClick={toggle}>{on ? 'Pause' : 'Start'}
+        <div>
+            <Button onClick={toggle}>
+                {on ? 'Pause' : 'Start'}
             </Button>
-            <Button onClick={reset} color="secondary">Reset</Button>
-        </Box>
+            <Button onClick={reset} color="secondary">
+                Reset
+            </Button>
+        </div>
     )
 }
 

@@ -12,6 +12,18 @@ const Countdown: FC = () => {
     const [minutesInput, setMinutesInput] = useState(0);
     const [on, setOn] = useState(false);
     
+    function playAudio() {
+        const audioUrl = process.env.PUBLIC_URL + 'https://zvukitop.com/wp-content/uploads/antic-ios-17.mp3';
+        const audio = new Audio(audioUrl);
+        audio.play();
+        // .then(() => {
+        //     console.log('Аудио воспроизводится');
+        // })
+        // .catch(error => {
+        //     console.error('Произошла ошибка при воспроизведении аудио:', error);
+        // });
+    }
+
     useEffect(() => {
         setMinutes(minutesInput);
         setSeconds(secondInput);
@@ -27,14 +39,15 @@ const Countdown: FC = () => {
                     setMinutes(minutes - 1);
                     setSeconds(59);
                 } else {
-                    clearInterval(interval)
+                    clearInterval(interval);
+                    playAudio();
                 }
             }, 1000)
         }
         return () => clearInterval(interval)
     }, [on, minutes, seconds]);
 
-
+    
 
 
     const reset = () => {
@@ -53,9 +66,9 @@ const Countdown: FC = () => {
         }
     }
 
-    const handleSetTime = (seconds: number, minutes: number) => {
-        setSecondsInput(seconds);
+    const handleSetTime = (minutes: number, seconds: number) => {
         setMinutesInput(minutes);
+        setSecondsInput(seconds);
     }
 
     return (
